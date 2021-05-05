@@ -3,8 +3,9 @@
   <arg name="config" default="base" />
   <arg name="x" default="0" />
   <arg name="y" default="0" />
-  <arg name="z" default="1" />
+  <arg name="z" default="10" />
   <arg name="yaw" default="0" />
+  <arg name="pitch" default="3.142" />
   <arg name="joystick" default="true" />
 
   <!-- Load Ridgeback's description, controllers, and teleop nodes. -->
@@ -37,7 +38,7 @@
 
   <!-- Spawn Ridgeback -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-        args="-urdf -model ridgeback -param robot_description -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw)" />
+        args="-urdf -model ridgeback -param robot_description -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw) -P $(arg pitch)" />
   <!--<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
         args="-sdf -model ridgeback -file /Users/mikepurvis/ridgeback_ws/ridgeback.sdf -x 0 -y 0 -z 0.1" /> -->
 </launch>

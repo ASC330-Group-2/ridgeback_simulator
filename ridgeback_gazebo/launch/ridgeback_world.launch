@@ -7,8 +7,9 @@
  <!-- Robot Spawn Pose -->
   <arg name="x" default="0"/>
   <arg name="y" default="0"/>
-  <arg name="z" default="0.1"/>
+  <arg name="z" default="10"/>
   <arg name="yaw" default="0"/>
+  <!-- <arg name="roll" default="3.142"/> -->
   <arg name="joystick" default="true" />
 
   <!-- Configuration of Ridgeback which you would like to simulate.
@@ -31,25 +32,40 @@
     <arg name="y" value="$(arg y)" />
     <arg name="z" value="$(arg z)" />
     <arg name="yaw" value="$(arg yaw)" />
+    <!-- <arg name="roll" value="$(arg roll)" /> -->
     <arg name="joystick" value="$(arg joystick)" />
   </include>
 
 
-
-
-
-
-
 <param name="red_box_path" type="str" value="$(find ur5_notebook)/urdf/red_box.urdf"/>
 
+<!-- spawn the conveyor_belts in gazebo -->
+  <group ns="ns_ndt">
+    <node name="conveyor_ndt_1" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_n1  -y 2 -x 0 -z 0.05" />
+    <node name="conveyor_ndt_2" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_n2  -y 2 -x 1.22 -z 0.05" />
+    <node name="conveyor_ndt_3" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_n3  -y 2 -x 2.44 -z 0.05" />
+  </group>
 
-<!-- spawn the conveyor_belt in gazebo -->
-  <node name="spawn_conveyor_belt" pkg="gazebo_ros" type="spawn_model" args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt" />
+  <group ns="ns_machines">
+    <node name="conveyor_MAC1_1" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_m11  -y -4 -x -8 -z 0.05 -Y 1.571" />
+    <node name="conveyor_MAC1_2" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_m12  -y -4 -x -6 -z 0.05 -Y 1.571" />
+    <node name="conveyor_MAC2_1" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_m21  -y 2 -x -8 -z 0.05" />
+    <node name="conveyor_MAC3_2" pkg="gazebo_ros" type="spawn_model" 
+      args="-file $(find ur5_notebook)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt_m22  -y 4 -x -8 -z 0.05" />
+  </group>
+
   <!-- spawn the bin in gazebo -->
   <node name="bin" pkg="gazebo_ros" type="spawn_model" args="-file $(find ur5_notebook)/urdf/bin.urdf -urdf -model bin -y 0.8 -x -0.5 -z 0.05" />
-  <!-- the red blocks spawner node -->
-  <node name="blocks_spawner" pkg="ur5_notebook" type="blocks_spawner" output="screen" />
 
+  <!-- the red blocks spawner node -->
+  <node name="blocks_spawner1" pkg="ur5_notebook" type="blocks_spawner" output="screen" />
+  
   <!-- the cylinder poses publisher node -->
   <node name="blocks_poses_publisher" pkg="ur5_notebook" type="blocks_poses_publisher" output="screen" />
 
